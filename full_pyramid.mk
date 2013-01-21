@@ -21,7 +21,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=htc_pyramid BUILD_FINGERPRINT=tmous
 # Set up the product codename, build version & MOTD.
 #
 PRODUCT_CODENAME := JellyBean
-PRODUCT_VERSION_DEVICE_SPECIFIC := opensource
+PRODUCT_VERSION_DEVICE_SPECIFIC := _OFFICIAL-
 
 PRODUCT_MOTD := "\n\n\n--------------------MESSAGE---------------------\nThank you for choosing DKOSP-JellyBean\n"
 

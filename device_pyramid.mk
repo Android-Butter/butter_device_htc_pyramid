@@ -17,14 +17,25 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
+# Device ID
+PRODUCT_NAME := full_pyramid
+PRODUCT_DEVICE := pyramid
+
 # common msm8660 configs
 $(call inherit-product, device/htc/msm8660-common/msm8660.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/htc/pyramid/overlay
 
-# GPS
+# GPS and Light
 PRODUCT_PACKAGES += \
     gps.pyramid
+
+## The gps config appropriate for this device
+PRODUCT_COPY_FILES += device/common/gps/gps.conf_EU:system/etc/gps.conf
+
+# Bluetooth
+PRODUCT_COPY_FILES += \
+    device/htc/msm8660-common/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd
 
 # Wifi
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
@@ -44,7 +55,7 @@ PRODUCT_COPY_FILES += \
     device/htc/pyramid/recovery/sbin/detect_key:recovery/root/sbin/detect_key \
     device/htc/pyramid/recovery/sbin/htcbatt:recovery/root/sbin/htcbatt
 
-# Some misc configeration files
+# Some misc configuration files
 PRODUCT_COPY_FILES += \
     device/htc/pyramid/vold.fstab:system/etc/vold.fstab
 
@@ -63,6 +74,9 @@ PRODUCT_COPY_FILES += \
 
 # HTC BT Audio tune
 PRODUCT_COPY_FILES += device/htc/pyramid/dsp/AudioBTID.csv:system/etc/AudioBTID.csv
+
+# QC thermald config
+PRODUCT_COPY_FILES += device/htc/pyramid/configs/thermald.conf:system/etc/thermald.conf
 
 # Sound configs
 PRODUCT_COPY_FILES += \
@@ -94,15 +108,28 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
 
-# Bluetooth firmware
-$(call inherit-product, device/htc/msm8660-common/bcm_hcd.mk)
-
 ## misc
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.setupwizard.enable_bypass=1 \
     dalvik.vm.lockprof.threshold=500 \
     ro.com.google.locationfeatures=1 \
     dalvik.vm.dexopt-flags=m=y
+
+## prebuilt kernel modules
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+LOCAL_KERNEL := device/htc/pyramid/prebuilt/kernel
+else
+LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel \
+    device/htc/pyramid/modules/bcmdhd.ko:/system/lib/modules/bcmdhd.ko \
+    device/htc/pyramid/modules/bcmdhd.ko:/system/lib/modules/bcm4329.ko \
+    device/htc/pyramid/modules/bcmdhd.ko:/system/lib/modules/cifs.ko \
+    device/htc/pyramid/modules/bcmdhd.ko:/system/lib/modules/tun.ko \
+    device/htc/pyramid/modules/bcmdhd.ko:/system/lib/modules/msm-buspm-dev.ko
+
 
 # call the proprietary setup
 $(call inherit-product-if-exists, vendor/htc/pyramid/pyramid-vendor.mk)
@@ -114,10 +141,3 @@ $(call inherit-product, device/htc/pyramid/media_a1026.mk)
 $(call inherit-product, device/htc/pyramid/media_htcaudio.mk)
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
-
-# Discard inherited values and use our own instead.
-PRODUCT_DEVICE := pyramid
-PRODUCT_NAME := pyramid
-PRODUCT_BRAND := htc
-PRODUCT_MODEL := Sensation
-PRODUCT_MANUFACTURER := HTC

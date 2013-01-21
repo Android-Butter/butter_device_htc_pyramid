@@ -51,7 +51,7 @@ on early-init
 on init
     mkdir /devlog 0700 root root
 
-on emmc-fs
+on fs
     # mount all mmc partitions
     mount_all /fstab.pyramid
 
@@ -88,8 +88,8 @@ on boot
     chown system system /sys/devices/platform/msm_sdcc.4/polling
 
     # bluetooth power up/down interface
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chmod 0660                /sys/class/rfkill/rfkill0/state
 
     # bluetooth MAC address programming
@@ -173,15 +173,6 @@ service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
     disabled
     oneshot
 
-service hciattach /system/bin/brcm_patchram_plus --enable_hci \
-        --tosleep 50000 --baudrate 3000000 --use_baudrate_for_download \
-        --patchram /vendor/firmware/bcm4329.hcd /dev/ttyHS0
-    class main
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
 service hdmid /system/bin/hdmid
     class main
     socket hdmid stream 0660 root system graphics
@@ -195,10 +186,6 @@ service iprenew_wlan0 /system/bin/dhcpcd -n
     class main
     disabled
     oneshot
-
-service mpdecision /system/bin/mpdecision --no_sleep --avg_comp --single_core_while_panel_off
-    user root
-    disabled
 
 service netmgrd /system/bin/netmgrd
     class main
@@ -229,11 +216,6 @@ service rmt_storage /system/bin/rmt_storage /dev/block/mmcblk0p26 /dev/block/mmc
     class core
     user root
 
-service thermald /system/bin/thermald
-    user root
-    group root
-    disabled
-
 service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -c /data/misc/wifi/wpa_supplicant.conf
     user root
     group wifi inet
@@ -243,9 +225,6 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -c /data/mis
 
 on property:init.svc.bootanim=stopped
     start qcom-post-boot
-
-on property:ro.hdmi.enable=true
-    start hdmid
 
 on property:service.adb.root=1
     write /sys/class/android_usb/android0/enable 0

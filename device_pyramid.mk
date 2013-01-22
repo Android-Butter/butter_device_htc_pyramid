@@ -125,9 +125,9 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel \
     device/htc/pyramid/modules/bcmdhd.ko:/system/lib/modules/bcmdhd.ko \
-    device/htc/pyramid/modules/bcmdhd.ko:/system/lib/modules/cifs.ko \
-    device/htc/pyramid/modules/bcmdhd.ko:/system/lib/modules/tun.ko \
-    device/htc/pyramid/modules/bcmdhd.ko:/system/lib/modules/msm-buspm-dev.ko
+    device/htc/pyramid/modules/cifs.ko:/system/lib/modules/cifs.ko \
+    device/htc/pyramid/modules/tun.ko:/system/lib/modules/tun.ko \
+    device/htc/pyramid/modules/msm-buspm-dev.ko:/system/lib/modules/msm-buspm-dev.ko
 
 
 # call the proprietary setup

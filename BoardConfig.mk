@@ -42,9 +42,9 @@ BOARD_KERNEL_PAGE_SIZE := 2048
 BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=pyramid no_console_suspend=1
 
 # Kernel [Build]
-#TARGET_KERNEL_CONFIG := pyramid_defconfig
-#TARGET_KERNEL_SOURCE := kernel/htc/msm8660
-#BUILD_KERNEL := true
+TARGET_KERNEL_CONFIG := pyramid_defconfig
+TARGET_KERNEL_SOURCE := kernel/htc/msm8660
+BUILD_KERNEL := true
 
 # Kernel [Prebuilt]
 TARGET_PREBUILT_KERNEL := device/htc/pyramid/prebuilt/kernel

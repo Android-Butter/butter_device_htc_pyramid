@@ -27,6 +27,9 @@
 # inherit from common msm8660
 -include device/htc/msm8660-common/BoardConfigCommon.mk
 
+# Broadcom specific config
+-include device/htc/msm8660-common/bcm.mk
+
 # Audio
 BOARD_HAVE_HTC_AUDIO := true
 
@@ -55,8 +58,7 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := pyramid
 
 # RIL
 BOARD_USE_NEW_LIBRIL_HTC := true
-TARGET_PROVIDES_LIBRIL := vendor/htc/pyramid/proprietary/libril.so
-#BOARD_USES_LEGACY_RIL := true
+
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true

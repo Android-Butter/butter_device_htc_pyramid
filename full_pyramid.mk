@@ -23,7 +23,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=htc_pyramid BUILD_FINGERPRINT=tmous
 PRODUCT_CODENAME := AOSP
 PRODUCT_VERSION_DEVICE_SPECIFIC := _JB_1
 
-PRODUCT_MOTD := "\n\n\n--------------------MESSAGE---------------------\nThank you for choosing DKOSP-JellyBean\n"
+PRODUCT_MOTD := "\n\n\n--------------------MESSAGE---------------------\nDragunKorr-JellyBean-4.2.2_r1\n"
 
 # Copy compatible prebuilt files
 PRODUCT_COPY_FILES +=  \

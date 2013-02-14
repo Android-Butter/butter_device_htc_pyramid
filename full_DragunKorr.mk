@@ -9,7 +9,7 @@ $(call inherit-product, device/htc/pyramid/device_pyramid.mk)
 
 # Device naming
 PRODUCT_NAME := pyramid
-PRODUCT_DEVICE := dkosp_pyramid
+PRODUCT_DEVICE := DragunKorr_pyramid
 PRODUCT_BRAND := htc
 PRODUCT_MODEL := HTC Sensation
 PRODUCT_MANUFACTURER := HTC
@@ -23,7 +23,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=htc_pyramid BUILD_FINGERPRINT=tmous
 PRODUCT_CODENAME := AOSP
 PRODUCT_VERSION_DEVICE_SPECIFIC := _JB_1
 
-PRODUCT_MOTD := "\n\n\n--------------------MESSAGE---------------------\nDragunKorr-JellyBean-4.2.2_r1\n"
+PRODUCT_MOTD := "\n\n\n--------------------MESSAGE---------------------\nThank you for choosing DKOSP-JellyBean\n"
 
 # Copy compatible prebuilt files
 PRODUCT_COPY_FILES +=  \

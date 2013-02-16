@@ -27,6 +27,9 @@
 # inherit from common msm8660
 -include device/htc/msm8660-common/BoardConfigCommon.mk
 
+# Broadcom specific config
+-include device/htc/msm8660-common/bcm.mk
+
 # Audio
 BOARD_HAVE_HTC_AUDIO := true
 
@@ -41,7 +44,6 @@ BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=pyramid no_console_
 # Kernel [Build]
 #TARGET_KERNEL_CONFIG := pyramid_defconfig
 #TARGET_KERNEL_SOURCE := kernel/htc/msm8660
-#TARGET_KERNEL_CUSTOM_TOOLCHAIN := linaro
 #BUILD_KERNEL := true
 
 # Kernel [Prebuilt]
@@ -56,7 +58,7 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := pyramid
 
 # RIL
 BOARD_USE_NEW_LIBRIL_HTC := true
-#TARGET_PROVIDES_LIBRIL := vendor/htc/pyramid/proprietary/libril.so
+
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true

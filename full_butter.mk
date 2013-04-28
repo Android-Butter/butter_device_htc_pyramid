@@ -21,7 +21,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=htc_pyramid BUILD_FINGERPRINT=tmous
 # Set up the product codename, build version & MOTD.
 #
 PRODUCT_CODENAME := aosp
-PRODUCT_VERSION_DEVICE_SPECIFIC := _JB_2
+PRODUCT_VERSION_DEVICE_SPECIFIC := _JB_3
 
 PRODUCT_MOTD := "\n\n\n--------------------MESSAGE---------------------\nThank you for choosing Butter-JellyBean\n"
 

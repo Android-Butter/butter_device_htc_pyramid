@@ -130,7 +130,11 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel \
     device/htc/pyramid/modules/bcmdhd.ko:/system/lib/modules/bcmdhd.ko \
-    device/htc/pyramid/modules/tun.ko:/system/lib/modules/tun.ko 
+    device/htc/pyramid/modules/cifs.ko:/system/lib/modules/cifs.ko \
+    device/htc/pyramid/modules/ppp_async.ko:/system/lib/modules/ppp_async.ko \
+    device/htc/pyramid/modules/scsi_wait_scan.ko:/system/lib/modules/scsi_wait_scan.ko \
+    device/htc/pyramid/modules/usb_wwan.ko:/system/lib/modules/usb_wwan \
+    device/htc/pyramid/modules/cdc-acm.ko:/system/lib/modules/cdc-acm.ko 
 
 # call the proprietary setup
 $(call inherit-product-if-exists, vendor/htc/pyramid/pyramid-vendor.mk)

@@ -1,7 +1,7 @@
 #!/system/bin/sh
 #Script originally made by Axetilen. Modified by Sultan (android1234567)
 #Updated for albinoman887's ChronicKernel (98% of the credit goes to android1234567. Thanks so much man :)
-#Updated for ChroncBruce-v2-linaro
+#Updated for ChronicKernel-linaro
 
 # Configure your options here #
 
@@ -15,7 +15,7 @@
 #  interactive
 #= lagfee
 #  performance
-GOV=ondemand;
+GOV=ondemand
 
 
 # Config I/O scheduler
@@ -24,20 +24,20 @@ GOV=ondemand;
 # noop
 # vr 
 # sio (default)
-IO=sio;
+IO=sio
 
 
 # Config CPU max frequency
 # Default: 1566000 (1566Mhtz)
 # Overclockable to - 1836000 (1836Mhtz)
 # for badass set to 1566mhtz (best performance/battery life)
-MAXFREQ=1566000;
+MAXFREQ=1566000
 
 
 # Config CPU min frequency
 # Default: 384000 (384Mhtz)
 # Range 384000 - 1944000 (384Mhtz - 1944Mhtz)
-MINFREQ=384000;
+MINFREQ=384000
 
 
 # Config 3D GPU clock
@@ -45,7 +45,7 @@ MINFREQ=384000;
 # 266667000 = 267mhz (default)
 # 300000000 = 300mhz (Recomended For balance of Performance and Battery life)
 # 320000000 = 320mhz
-GPU=266667000;
+GPU=266667000
 
 
 # Config 2D GPU clock
@@ -54,7 +54,7 @@ GPU=266667000;
 # 200000000 = 200mhz (default)
 # 228571000 = 228mhz (Recomended For balance of Performance and Battery life)
 # 266667000 = 267mhz
-DD=200000000;
+DD=200000000
 
 
 # Badass
@@ -69,21 +69,21 @@ BADASS=2
 # 0 = disabled (default)
 # 1 = enabled
 # 2 = enabled (with no button backlight during sweep)
-SWEEP=1
+SWEEP=0
 
 
 # Enable Fastcharge
 # 0 = disabled
 # 1 = substitute AC to USB charging always
 # 2 = substitute AC to USB charging only if there is no USB peripheral detected
-FASTCHARGE=0;
+FASTCHARGE=1
 
 
 # Fsync Control
 # Disabled by default (recomended)
 # 2 = Fsync disabled
 # 1 = Fsync enabled
-FSYNC=2;
+FSYNC=2
 
 
 # TUN
@@ -106,6 +106,7 @@ TUN=0
 
 # Config 3D GPU setting
     chmod 644 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk
+    chmod 644 /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk
     echo $GPU > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/max_gpuclk
     echo $GPU > /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk
 
@@ -210,6 +211,7 @@ if [ "$FSYNC" = "2" ]
 then
     echo "0" > sys/class/misc/fsynccontrol/fsync_enabled
 fi
+
 
 # Config TUN
 if [ "${TUN}" = "1" ]; then

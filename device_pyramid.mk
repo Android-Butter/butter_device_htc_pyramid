@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011 The CyanogenMod Project
+# Copyright (C) 2013 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,33 +14,24 @@
 # limitations under the License.
 #
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-
-# Device ID
-PRODUCT_NAME := full_pyramid
-PRODUCT_DEVICE := pyramid
 
 # common msm8660 configs
 $(call inherit-product, device/htc/msm8660-common/msm8660.mk)
 
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
 DEVICE_PACKAGE_OVERLAYS += device/htc/pyramid/overlay
 
-# GPS and Light
+# GPS
 PRODUCT_PACKAGES += \
     gps.pyramid
-
-# Torch
-PRODUCT_PACKAGES += \
-    Torch
 
 ## The gps config appropriate for this device
 PRODUCT_COPY_FILES += device/common/gps/gps.conf_US:system/etc/gps.conf
 
-# Bluetooth
-PRODUCT_COPY_FILES += \
-    device/htc/msm8660-common/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd
-
+# Bluetooth firmware
+$(call inherit-product, device/htc/msm8660-common/bcm_hcd.mk)
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
 
@@ -61,7 +52,7 @@ PRODUCT_COPY_FILES += \
 
 # Some misc configuration files
 PRODUCT_COPY_FILES += \
-    device/htc/pyramid/vold.fstab:system/etc/vold.fstab \
+    device/htc/pyramid/configs/vold.fstab:system/etc/vold.fstab \
     device/htc/pyramid/configs/99kernel:system/etc/init.d/99kernel
 
 # Keylayouts and Keychars
@@ -79,9 +70,6 @@ PRODUCT_COPY_FILES += \
 
 # HTC BT Audio tune
 PRODUCT_COPY_FILES += device/htc/pyramid/dsp/AudioBTID.csv:system/etc/AudioBTID.csv
-
-# QC thermald config
-PRODUCT_COPY_FILES += device/htc/pyramid/configs/thermald.conf:system/etc/thermald.conf
 
 # Sound configs
 PRODUCT_COPY_FILES += \
@@ -113,28 +101,20 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
 
+# Adreno Drivers
+PRODUCT_COPY_FILES += \
+    device/htc/pyramid/firmware/a225_pfp.fw:system/etc/firmware/a225_pfp.fw \
+    device/htc/pyramid/firmware/a225_pm4.fw:system/etc/firmware/a225_pm4.fw \
+    device/htc/pyramid/firmware/a225p5_pm4.fw:system/etc/firmware/a225p5_pm4.fw \
+    device/htc/pyramid/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
+    device/htc/pyramid/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw
+
 ## misc
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.setupwizard.enable_bypass=1 \
     dalvik.vm.lockprof.threshold=500 \
     ro.com.google.locationfeatures=1 \
     dalvik.vm.dexopt-flags=m=y
-
-## prebuilt kernel modules
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/htc/pyramid/prebuilt/kernel
-else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel \
-    device/htc/pyramid/modules/bcmdhd.ko:/system/lib/modules/bcmdhd.ko \
-    device/htc/pyramid/modules/cifs.ko:/system/lib/modules/cifs.ko \
-    device/htc/pyramid/modules/ppp_async.ko:/system/lib/modules/ppp_async.ko \
-    device/htc/pyramid/modules/scsi_wait_scan.ko:/system/lib/modules/scsi_wait_scan.ko \
-    device/htc/pyramid/modules/usb_wwan.ko:/system/lib/modules/usb_wwan \
-    device/htc/pyramid/modules/cdc-acm.ko:/system/lib/modules/cdc-acm.ko 
 
 # call the proprietary setup
 $(call inherit-product-if-exists, vendor/htc/pyramid/pyramid-vendor.mk)
@@ -146,3 +126,7 @@ $(call inherit-product, device/htc/pyramid/media_a1026.mk)
 $(call inherit-product, device/htc/pyramid/media_htcaudio.mk)
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
+
+# Device ID
+PRODUCT_NAME := full_pyramid
+PRODUCT_DEVICE := pyramid

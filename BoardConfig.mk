@@ -20,18 +20,8 @@
 # definition file).
 #
 
-# WARNING: This line must come *before* including the proprietary
-# variant, so that it gets overwritten by the parent (which goes
-# against the traditional rules of inheritance).
-
 # inherit from common msm8660
 -include device/htc/msm8660-common/BoardConfigCommon.mk
-
-# Broadcom specific config
--include device/htc/msm8660-common/bcm.mk
-
-# Audio
-BOARD_HAVE_HTC_AUDIO := true
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := pyramid
@@ -42,23 +32,27 @@ BOARD_KERNEL_PAGE_SIZE := 2048
 BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=pyramid no_console_suspend=1
 
 # Kernel [Build]
-#TARGET_KERNEL_CONFIG := pyramid_defconfig
-#TARGET_KERNEL_SOURCE := kernel/htc/msm8660
-#BUILD_KERNEL := true
+TARGET_KERNEL_CONFIG := pyramid_defconfig
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := linaro-arm-cortex-a8
+TARGET_KERNEL_CUSTOM_TOOLCHAIN_SUFFIX := arm-cortex_a8-linux-gnueabi
+BUILD_KERNEL := true
 
-# Kernel [Prebuilt]
-TARGET_PREBUILT_KERNEL := device/htc/pyramid/prebuilt/kernel
+# Build Optimizations (linaro -O3)
+ARCH_ARM_HIGH_OPTIMIZATION := true
+ARCH_ARM_HIGH_OPTIMIZATION_COMPAT := true 
 
-# Wifi
-WIFI_DRIVER_MODULE_NAME          := bcmdhd
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/bcmdhd.ko"
+# Bluetooth/Wifi
+-include device/htc/msm8660-common/bcmdhd.mk
 
 # Qcom GPS
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := pyramid
 
-# RIL
-BOARD_USE_NEW_LIBRIL_HTC := true
+# FM Radio
+BOARD_HAVE_FM_RADIO := true
+BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
 
+# RIL
+BOARD_USES_LEGACY_RIL := true
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
